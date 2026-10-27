@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniRack — Rent a Mac mini, Linux desktop or AI server</title>
+<meta name="description" content="Rent a dedicated Mac mini (M4 / M5 / M6), Omarchy Linux box or Olares One in Singapore or San Jose. From $80/month.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F3EE;
+    --paper: #FBFAF7;
+    --ink: #1A1A1A;
+    --muted: #6B6862;
+    --line: #DAD6CC;
+    --sg: #E2483D;
+    --us: #2B4C9B;
+    --serif: "Instrument Serif", Georgia, serif;
+    --sans: "Geist", system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .muted { color: var(--muted); }
+  em { font-style: italic; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 10; background: rgba(245,243,238,.88); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--sans); font-weight: 600; font-size: 20px; letter-spacing: -.02em; }
+  .logo-mark { display: flex; gap: 4px; }
+  .logo-mark i { width: 9px; height: 9px; border-radius: 2px; display: block; }
+  .logo-mark i:first-child { background: var(--sg); }
+  .logo-mark i:last-child { background: var(--us); }
+  .nav-links { display: flex; gap: 36px; align-items: center; font-size: 15px; }
+  .nav-links a:not(.btn):hover { color: var(--muted); }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; font-family: var(--sans); font-size: 15px; font-weight: 500; border: 1px solid var(--ink); cursor: pointer; transition: transform .15s, background .15s, color .15s; }
+  .btn-dark { background: var(--ink); color: var(--bg); }
+  .btn-dark:hover { transform: translateY(-1px); background: #000; }
+  .btn-ghost { background: transparent; color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--bg); }
+
+  /* Hero */
+  .hero { padding: 88px 0 40px; }
+  .hero-top { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: end; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(56px, 8vw, 112px); line-height: .92; letter-spacing: -.035em; }
+  h1 em { color: var(--sg); }
+  .hero-sub { font-size: 19px; max-width: 420px; padding-bottom: 14px; }
+  .hero-sub p { margin-bottom: 28px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .map-dot { fill: #C9C4B8; }
+  .arc { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 4 5; animation: dash 30s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset: -600; } }
+  .pulse { transform-box: fill-box; transform-origin: center; animation: pulse 2.4s ease-out infinite; }
+  @keyframes pulse { 0% { transform: scale(1); opacity: .5; } 100% { transform: scale(4.5); opacity: 0; } }
+  .node-label { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; }
+  .node-city { font-family: var(--serif); font-size: 22px; }
+  .map-legend { display: flex; justify-content: space-between; margin-top: 16px; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+  .stat { padding: 36px 28px 36px 0; }
+  .stat + .stat { padding-left: 28px; border-left: 1px solid var(--line); }
+  .stat b { display: block; font-family: var(--serif); font-weight: 400; font-size: 44px; line-height: 1.1; letter-spacing: -.02em; }
+
+  /* Section heads */
+  section { padding: 120px 0 0; }
+  .sec-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 56px; align-items: end; }
+  h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 6vw, 80px); line-height: 1; letter-spacing: -.03em; }
+
+  /* Lineup (hero) */
+  .lineup { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 72px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+  .tile { padding: 28px 28px 32px 0; display: flex; flex-direction: column; gap: 6px; transition: background .2s; }
+  .tile + .tile { padding-left: 28px; border-left: 1px solid var(--line); }
+  .tile:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  .tile h3 { font-family: var(--serif); font-weight: 400; font-size: 44px; line-height: 1.05; letter-spacing: -.02em; }
+  .tile .tag { display: inline-flex; align-items: center; gap: 8px; }
+  .tile .tag i { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+  .tile-foot { margin-top: 18px; display: flex; justify-content: space-between; align-items: baseline; }
+  .tile-foot b { font-family: var(--serif); font-weight: 400; font-size: 28px; }
+
+  .addon { margin-top: 24px; padding: 28px 36px; border: 1px dashed var(--ink); display: grid; grid-template-columns: 1fr 2fr auto; gap: 32px; align-items: center; }
+  .addon h4 { font-family: var(--serif); font-weight: 400; font-size: 32px; line-height: 1.1; margin-top: 4px; }
+  .addon p { font-size: 16px; }
+
+  /* Services */
+  .svc { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 40px; padding: 44px 0; border-top: 1px solid var(--line); }
+  .svc:last-child { border-bottom: 1px solid var(--line); }
+  .svc h3 { font-family: var(--serif); font-weight: 400; font-size: 52px; line-height: 1; letter-spacing: -.02em; margin: 10px 0 14px; }
+  .svc ul { list-style: none; }
+  .svc li { padding: 8px 0 8px 22px; position: relative; font-size: 16px; }
+  .svc li::before { content: "→"; position: absolute; left: 0; color: var(--muted); }
+  .svc .who { font-size: 15px; }
+  .svc .who b { font-weight: 500; display: block; margin-bottom: 6px; }
+
+  /* Included */
+  .incl { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); }
+  .incl div { padding: 28px 28px 32px 0; border-bottom: 1px solid var(--line); }
+  .incl div:not(:nth-child(3n+1)) { padding-left: 28px; border-left: 1px solid var(--line); }
+  .incl h4 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.1; margin: 10px 0 8px; }
+
+  /* Locations (compact) */
+  .loc { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: center; }
+  .loc svg { width: 100%; height: auto; display: block; }
+  .loc-list > div { padding: 24px 0; border-top: 1px solid var(--line); }
+  .loc-list > div:last-child { border-bottom: 1px solid var(--line); }
+  .loc-list h4 { font-family: var(--serif); font-weight: 400; font-size: 36px; line-height: 1; display: flex; justify-content: space-between; align-items: baseline; margin: 8px 0 8px; }
+  .loc-list h4 span { font-family: var(--mono); font-size: 18px; }
+  .loc-list p { font-size: 15px; }
+
+  /* Pricing */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--ink); }
+  .plan { padding: 48px 44px; display: flex; flex-direction: column; }
+  .plan + .plan { border-left: 1px solid var(--ink); }
+  .plan-featured { background: var(--ink); color: var(--bg); }
+  .plan-featured .muted { color: #A9A59C; }
+  .plan-featured li { border-color: #3A3936; }
+  .plan-featured .btn { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+  .plan h3 { font-family: var(--serif); font-weight: 400; font-size: 38px; line-height: 1; }
+  .price { font-family: var(--serif); font-size: 80px; line-height: 1; letter-spacing: -.03em; margin: 28px 0 4px; }
+  .price small { font-family: var(--mono); font-size: 14px; letter-spacing: 0; }
+  .plan ul { list-style: none; margin: 28px 0 36px; flex: 1; }
+  .plan li { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 15px; }
+  .plan li span:last-child { font-family: var(--mono); font-size: 14px; }
+  .pricing-note { margin-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  /* FAQ */
+  .faq { max-width: 860px; }
+  details { border-top: 1px solid var(--line); padding: 24px 0; }
+  details:last-child { border-bottom: 1px solid var(--line); }
+  summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; font-family: var(--serif); font-size: 28px; line-height: 1.2; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-family: var(--sans); font-weight: 300; transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { margin-top: 14px; max-width: 680px; color: var(--muted); }
+
+  /* Waitlist */
+  .join { margin-top: 140px; background: var(--ink); color: var(--bg); padding: 110px 0; }
+  .join h2 em { color: var(--sg); }
+  .join-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: end; }
+  form { display: flex; flex-direction: column; gap: 14px; }
+  .field { display: flex; border: 1px solid #4A4844; border-radius: 999px; overflow: hidden; }
+  .field input, .field select { flex: 1; background: transparent; border: 0; color: var(--bg); font-family: var(--sans); font-size: 16px; padding: 16px 24px; outline: none; }
+  .field select { flex: 0 0 auto; border-left: 1px solid #4A4844; font-family: var(--mono); font-size: 13px; cursor: pointer; }
+  .field select option { color: var(--ink); }
+  .join .btn { background: var(--bg); color: var(--ink); border-color: var(--bg); justify-content: center; padding: 16px; }
+  .form-msg { min-height: 22px; font-size: 14px; color: #A9A59C; }
+
+  footer { background: var(--ink); color: #8F8B83; border-top: 1px solid #333; padding: 32px 0 48px; font-size: 13px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  footer .logo { color: var(--bg); font-size: 16px; }
+
+  @media (max-width: 900px) {
+    .wrap { padding: 0 22px; }
+    .nav-links a:not(.btn) { display: none; }
+    .hero { padding-top: 56px; }
+    .hero-top, .sec-head, .plans, .join-grid, .lineup, .svc, .incl, .loc { grid-template-columns: 1fr; }
+    .tile + .tile, .incl div:not(:nth-child(3n+1)) { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+    .svc { gap: 16px; }
+    .addon { grid-template-columns: 1fr; gap: 12px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(3) { padding-left: 0; border-left: 0; }
+    .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .plan + .plan { border-left: 0; border-top: 1px solid var(--ink); }
+    .price { font-size: 72px; }
+    .node-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo"><span class="logo-mark"><i></i><i></i></span>MiniRack</a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#locations">Locations</a>
+      <a href="#faq">FAQ</a>
+      <a href="#join" class="btn btn-dark">Reserve</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <h1>Rent the machine.<br><em>Skip the hardware.</em></h1>
+      <div class="hero-sub">
+        <p>Dedicated Mac mini, Omarchy Linux desktops and Olares One AI servers — set up, online and looked after for you. Ready in 60 seconds, from <b>$80/month</b>.</p>
+        <div class="hero-cta">
+          <a href="#pricing" class="btn btn-dark">Choose a machine →</a>
+          <a href="#services" class="btn btn-ghost">What you get</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="lineup">
+      <a href="#svc-mac" class="tile">
+        <span class="mono muted tag"><i style="background:var(--sg)"></i>macOS</span>
+        <h3>Mac mini</h3>
+        <span class="muted">iOS builds, Xcode, macOS-only agents.</span>
+        <span class="tile-foot"><b>$129</b><span class="mono muted">/ month</span></span>
+      </a>
+      <a href="#svc-omarchy" class="tile">
+        <span class="mono muted tag"><i style="background:var(--us)"></i>Linux</span>
+        <h3>Omarchy Remote</h3>
+        <span class="muted">A tuned Arch + Hyprland dev desktop.</span>
+        <span class="tile-foot"><b>$80</b><span class="mono muted">/ month</span></span>
+      </a>
+      <a href="#svc-olares" class="tile">
+        <span class="mono muted tag"><i style="background:var(--ink)"></i>AI server</span>
+        <h3>Olares One</h3>
+        <span class="muted">Your own RTX 5090 AI server.</span>
+        <span class="tile-foot"><b>$500</b><span class="mono muted">/ month</span></span>
+      </a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>60 sec</b><span class="muted">from checkout to login</span></div>
+      <div class="stat"><b>100%</b><span class="muted">dedicated hardware, no VMs</span></div>
+      <div class="stat"><b>1 Gbps</b><span class="muted">uplink, static IPv4</span></div>
+      <div class="stat"><b>24 / 7</b><span class="muted">always on, auto-recovery</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Three services.<br>One <em>job</em> each.</h2>
+      <p class="muted">Every machine comes ready to work: OS installed, remote access configured, monitored around the clock. You just log in.</p>
+    </div>
+
+    <div class="svc" id="svc-mac">
+      <div>
+        <div class="mono" style="color:var(--sg)">01 · macOS</div>
+        <h3>Mac mini</h3>
+        <p class="muted">A real Mac in the cloud, all to yourself.</p>
+      </div>
+      <ul>
+        <li>Self-hosted GitHub Actions &amp; fastlane runners</li>
+        <li>Build, sign and notarize iOS / macOS apps</li>
+        <li>Run agents that need iMessage, Shortcuts or Safari</li>
+        <li>Remote macOS desktop from any laptop</li>
+      </ul>
+      <div class="who"><b>Best for</b><span class="muted">iOS teams, indie app makers, AI agent builders who need macOS.</span></div>
+    </div>
+
+    <div class="svc" id="svc-omarchy">
+      <div>
+        <div class="mono" style="color:var(--us)">02 · Linux</div>
+        <h3>Omarchy Remote</h3>
+        <p class="muted">An opinionated Linux dev box, already configured.</p>
+      </div>
+      <ul>
+        <li>Omarchy (Arch + Hyprland) preinstalled and tuned</li>
+        <li>Code, compile and run containers on dedicated cores</li>
+        <li>Same environment from home, office or travel</li>
+        <li>Keep long-running jobs alive while your laptop sleeps</li>
+      </ul>
+      <div class="who"><b>Best for</b><span class="muted">Developers who want a Linux workstation without owning one.</span></div>
+    </div>
+
+    <div class="svc" id="svc-olares">
+      <div>
+        <div class="mono">03 · AI server</div>
+        <h3>Olares One</h3>
+        <p class="muted">Your own RTX 5090 AI server — invite your team in.</p>
+      </div>
+      <ul>
+        <li>Run open-source LLMs on an RTX 5090 with 24 GB of VRAM</li>
+        <li>Image, video and speech models via Olares apps</li>
+        <li>Self-host AI tools for your team with web access</li>
+        <li>Invite teammates to share your machine</li>
+      </ul>
+      <div class="who"><b>Best for</b><span class="muted">AI startups, small teams and model tinkerers who want a GPU box without buying one.</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Included with<br><em>every</em> machine.</h2>
+      <p class="muted">You rent the result, not a pile of hardware chores.</p>
+    </div>
+    <div class="incl">
+      <div><span class="mono muted">Setup</span><h4>Ready in 60 seconds</h4><p class="muted">OS installed, accounts created, credentials emailed.</p></div>
+      <div><span class="mono muted">Hardware</span><h4>Dedicated, never shared</h4><p class="muted">One physical machine per customer for the whole rental.</p></div>
+      <div><span class="mono muted">Network</span><h4>Static IPv4 &amp; 1 Gbps</h4><p class="muted">A fixed address you can whitelist, on a fast uplink.</p></div>
+      <div><span class="mono muted">Control</span><h4>Reboot &amp; reinstall</h4><p class="muted">Power-cycle or wipe back to a clean OS on request.</p></div>
+      <div><span class="mono muted">Uptime</span><h4>Monitored 24/7</h4><p class="muted">Health checks and auto-recovery if a machine hangs.</p></div>
+      <div><span class="mono muted">People</span><h4>Real human support</h4><p class="muted">Email the team that racks your machine.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Three machines.<br><em>No</em> surprises.</h2>
+      <p class="muted">Flat monthly price in either city. Bandwidth, static IPv4 and OS updates included. Pick the box that fits the job.</p>
+    </div>
+
+    <div class="plans">
+      <div class="plan">
+        <div class="mono muted">Linux dev desktop</div>
+        <h3>Omarchy Remote</h3>
+        <div class="price">$80<small> / month</small></div>
+        <div class="mono muted">Arch Linux + Hyprland, preconfigured</div>
+        <ul>
+          <li><span>CPU</span><span>Intel · 12-core</span></li>
+          <li><span>Memory</span><span>16 GB</span></li>
+          <li><span>Storage</span><span>256 GB SSD</span></li>
+          <li><span>Network</span><span>1 Gbps · 1 IPv4</span></li>
+          <li><span>Access</span><span>Omarchy · SSH · RDP</span></li>
+        </ul>
+        <a href="#join" class="btn btn-ghost" data-plan="omarchy">Reserve Omarchy</a>
+      </div>
+      <div class="plan plan-featured">
+        <div class="mono muted">For builds &amp; agents</div>
+        <h3>Mac mini</h3>
+        <div class="price">$129<small> / month</small></div>
+        <div class="mono muted">Real Apple Silicon, dedicated</div>
+        <ul>
+          <li><span>Chip</span><span>Apple M4 / M5 / M6</span></li>
+          <li><span>Memory</span><span>16 GB unified</span></li>
+          <li><span>Storage</span><span>256 GB SSD</span></li>
+          <li><span>Network</span><span>1 Gbps · 1 IPv4</span></li>
+          <li><span>Access</span><span>macOS · SSH · VNC</span></li>
+        </ul>
+        <a href="#join" class="btn" data-plan="macmini">Reserve Mac mini</a>
+      </div>
+      <div class="plan">
+        <div class="mono muted">Team AI server</div>
+        <h3>Olares One</h3>
+        <div class="price">$500<small> / month</small></div>
+        <div class="mono muted">RTX 5090 · invite your team</div>
+        <ul>
+          <li><span>CPU</span><span>Core Ultra 9 275HX · 24C</span></li>
+          <li><span>GPU</span><span>RTX 5090 Mobile · 24 GB</span></li>
+          <li><span>Memory</span><span>96 GB DDR5</span></li>
+          <li><span>Storage</span><span>2 TB NVMe SSD</span></li>
+          <li><span>Access</span><span>Olares OS · Web · SSH</span></li>
+        </ul>
+        <a href="#join" class="btn btn-ghost" data-plan="olares">Reserve Olares One</a>
+      </div>
+    </div>
+    <div class="addon">
+      <div>
+        <span class="mono muted">Add-on</span>
+        <h4>Coding agent setup</h4>
+      </div>
+      <p class="muted">Want it ready to code? We can install and configure a coding agent — Claude Code, Codex and more — on your machine for you.</p>
+      <span class="mono">Priced separately</span>
+    </div>
+    <div class="pricing-note mono muted">
+      <span>Prices in USD · excl. tax</span>
+      <span>Available in Singapore &amp; San Jose · cancel anytime</span>
+    </div>
+  </div>
+</section>
+
+<section id="locations">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Two locations.<br>Pick at <em>checkout</em>.</h2>
+      <p class="muted">Every service is available in both data centers at the same price. Choose the one closest to you or your users.</p>
+    </div>
+    <div class="loc">
+      <svg id="map" viewBox="0 0 720 260" aria-label="Map showing Singapore and San Jose data centers"></svg>
+      <div class="loc-list">
+        <div>
+          <span class="mono" style="color:var(--sg)">● Singapore</span>
+          <h4>Singapore <span data-tz="Asia/Singapore">--:--</span></h4>
+          <p class="muted">Southeast Asia, Greater China, Japan, Oceania.</p>
+        </div>
+        <div>
+          <span class="mono" style="color:var(--us)">● United States</span>
+          <h4>San Jose <span data-tz="America/Los_Angeles">--:--</span></h4>
+          <p class="muted">North &amp; South America, close to US cloud and APIs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Questions.</h2>
+      <p></p>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>Is the machine dedicated to me?</summary>
+        <p>Yes. Every MiniRack plan is one physical machine, assigned only to you for the length of your rental. No virtualization, no neighbors. On Olares One you can invite your own teammates to join.</p>
+      </details>
+      <details>
+        <summary>How do I connect?</summary>
+        <p>You get a static IPv4 with SSH enabled, plus VNC / Apple Remote Desktop on Mac mini and remote desktop on Omarchy. Credentials arrive by email about 60 seconds after checkout.</p>
+      </details>
+      <details>
+        <summary>Can I switch between Singapore and San Jose?</summary>
+        <p>Yes. Reserve a machine in the other city and we'll help you move your data. Both racks offer all three machines at the same price.</p>
+      </details>
+      <details>
+        <summary>Can you set up a coding agent for me?</summary>
+        <p>Yes. We can install and configure a coding agent such as Claude Code or Codex on your machine so it's ready to work when you log in. This is an add-on, priced separately — mention it when you reserve.</p>
+      </details>
+      <details>
+        <summary>What happens to my data when I cancel?</summary>
+        <p>The disk is securely erased and the OS is reinstalled before the machine goes to the next customer.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="join" id="join">
+  <div class="wrap join-grid">
+    <div>
+      <div class="mono" style="color:#A9A59C;margin-bottom:20px">Early access · limited racks</div>
+      <h2>Reserve your<br>machine, <em>now.</em></h2>
+    </div>
+    <form id="waitlist">
+      <div class="field">
+        <input type="email" name="email" placeholder="you@company.com" required aria-label="Email">
+        <select name="machine" aria-label="Machine">
+          <option value="macmini">Mac mini</option>
+          <option value="omarchy">Omarchy</option>
+          <option value="olares">Olares One</option>
+        </select>
+        <select name="region" aria-label="Region">
+          <option value="sg">Singapore</option>
+          <option value="us">San Jose</option>
+        </select>
+      </div>
+      <button type="submit" class="btn">Join the waitlist →</button>
+      <div class="form-msg" id="form-msg">We'll email you when your rack opens. No spam.</div>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span class="logo"><span class="logo-mark"><i></i><i></i></span>MiniRack</span>
+    <span>© 2026 MiniRack. Mac and Mac mini are trademarks of Apple Inc. MiniRack is not affiliated with Apple.</span>
+  </div>
+</footer>
+
+<script>
+  // Land mask on a 5° grid. Each row starts at lat 75°N and steps 5° south;
+  // columns are 5° of longitude starting at 180°W. Values are [startCol, endCol] spans.
+  const LAND = [
+    [[12,22],[24,32],[50,62]],
+    [[3,8],[10,24],[25,32],[40,42],[42,70]],
+    [[2,8],[9,23],[26,31],[32,33],[38,71]],
+    [[4,8],[8,16],[20,24],[27,28],[35,36],[37,68]],
+    [[8,16],[20,24],[34,35],[36,64],[67,68]],
+    [[11,25],[35,62],[64,64]],
+    [[11,23],[35,42],[45,63],[64,65]],
+    [[11,21],[34,36],[38,39],[41,61],[63,64]],
+    [[12,20],[34,60],[62,62]],
+    [[13,17],[32,47],[48,60]],
+    [[14,17],[32,43],[44,47],[49,54],[56,60]],
+    [[15,18],[19,19],[32,46],[50,52],[55,57],[60,60]],
+    [[17,18],[32,45],[51,51],[56,57],[60,60]],
+    [[19,19],[21,23],[32,46],[56,57]],
+    [[20,28],[34,44],[56,57],[59,60],[61,61]],
+    [[20,28],[37,44],[55,56],[58,61]],
+    [[20,29],[38,43],[57,58],[63,65]],
+    [[21,29],[38,44],[61,63]],
+    [[21,28],[38,44],[45,45],[60,65]],
+    [[22,27],[38,43],[45,45],[59,66]],
+    [[22,26],[38,42],[59,66]],
+    [[22,25],[39,42],[59,66]],
+    [[21,24],[63,65],[70,70]],
+    [[21,23],[65,65],[70,71]],
+    [[21,22],[69,69]],
+    [[21,22]],
+  ];
+  // Re-center the map on the Pacific (left edge = 20°W) so the SG↔US arc crosses the ocean.
+  const SHIFT = 32;
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.getElementById("map");
+  const el = (tag, attrs) => {
+    const n = document.createElementNS(svgNS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  };
+  LAND.forEach((spans, row) => {
+    spans.forEach(([a, b]) => {
+      for (let c = a; c <= b; c++) {
+        const col = (c - SHIFT + 72) % 72;
+        svg.appendChild(el("circle", { cx: col * 10 + 5, cy: row * 10 + 5, r: 2.4, class: "map-dot" }));
+      }
+    });
+  });
+
+  const project = (lat, lon) => {
+    const col = ((lon + 180) / 5 - SHIFT + 72) % 72;
+    return [col * 10, (75 - lat) / 5 * 10];
+  };
+  const sg = project(1.29, 103.85);
+  const us = project(37.34, -121.89);
+  const midX = (sg[0] + us[0]) / 2;
+  svg.appendChild(el("path", { d: `M${sg[0]},${sg[1]} Q${midX},${Math.min(sg[1], us[1]) - 120} ${us[0]},${us[1]}`, class: "arc" }));
+
+  const node = ([x, y], color, city, meta, anchor) => {
+    svg.appendChild(el("circle", { cx: x, cy: y, r: 5, fill: color, class: "pulse" }));
+    svg.appendChild(el("circle", { cx: x, cy: y, r: 5, fill: color }));
+    const dx = anchor === "end" ? -14 : 14;
+    const t1 = el("text", { x: x + dx, y: y + 4, "text-anchor": anchor, class: "node-city", fill: color });
+    t1.textContent = city;
+    const t2 = el("text", { x: x + dx, y: y + 18, "text-anchor": anchor, class: "node-label", fill: "#6B6862" });
+    t2.textContent = meta;
+    svg.append(t1, t2);
+  };
+  node(sg, "#E2483D", "Singapore", "ONLINE", "end");
+  node(us, "#2B4C9B", "San Jose", "ONLINE", "start");
+
+  // Live local clocks for each data center.
+  const tick = () => document.querySelectorAll("[data-tz]").forEach(n => {
+    n.textContent = new Date().toLocaleTimeString("en-GB", { timeZone: n.dataset.tz, hour: "2-digit", minute: "2-digit" });
+  });
+  tick();
+  setInterval(tick, 15000);
+
+  document.querySelectorAll("[data-plan]").forEach(b => b.addEventListener("click", () => {
+    document.querySelector('select[name="machine"]').value = b.dataset.plan;
+  }));
+
+  // Waitlist: no backend yet, so submissions are kept in localStorage.
+  document.getElementById("waitlist").addEventListener("submit", e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    const list = JSON.parse(localStorage.getItem("minirack_waitlist") || "[]");
+    list.push({ ...data, at: new Date().toISOString() });
+    localStorage.setItem("minirack_waitlist", JSON.stringify(list));
+    const city = data.region === "sg" ? "Singapore" : "San Jose";
+    const machine = { macmini: "Mac mini", omarchy: "Omarchy", olares: "Olares One" }[data.machine];
+    document.getElementById("form-msg").textContent = `You're on the list for ${machine} in ${city}. We'll be in touch at ${data.email}.`;
+    e.target.reset();
+  });
+</script>
+</body>
+</html>
