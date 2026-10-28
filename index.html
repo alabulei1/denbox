@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MiniRack — Rent a Mac mini, Linux desktop or AI server</title>
+<title>DenBox — Rent a Mac mini, Linux desktop or AI server</title>
 <meta name="description" content="Rent a dedicated Mac mini (M4 / M5 / M6), Omarchy Linux box or Olares One in Singapore or San Jose. From $89/month.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -203,7 +203,7 @@
 
 <nav>
   <div class="wrap">
-    <a href="#" class="logo"><span class="logo-mark"><i></i><i></i></span>MiniRack</a>
+    <a href="#" class="logo"><span class="logo-mark"><i></i><i></i></span>DenBox</a>
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
@@ -408,15 +408,15 @@
         <div class="cmp-row"><span>MacinCloud dedicated</span><b>~$164</b><i style="--w:18%"></i></div>
         <div class="cmp-row"><span>MacStadium M4.S</span><b>$149</b><i style="--w:17%"></i></div>
         <div class="cmp-row"><span>Scaleway M4-S</span><b>€149</b><i style="--w:17%"></i></div>
-        <div class="cmp-row cmp-us"><span>MiniRack</span><b>$129</b><i style="--w:14%"></i></div>
-        <p class="cmp-note muted">The others run in data centers. MiniRack runs on a home network — fewer Apple ID and account flags.</p>
+        <div class="cmp-row cmp-us"><span>DenBox</span><b>$129</b><i style="--w:14%"></i></div>
+        <p class="cmp-note muted">The others run in data centers. DenBox runs on a home network — fewer Apple ID and account flags.</p>
       </div>
       <div class="cmp">
         <div class="mono muted">Linux · 16 GB</div>
         <h4>Omarchy Remote</h4>
         <div class="cmp-row"><span>AWS EC2 · 8 vCPU <small>per month</small></span><b>~$212</b><i style="--w:100%"></i></div>
         <div class="cmp-row"><span>Hetzner CCX23 · 4 vCPU</span><b>€86</b><i style="--w:44%"></i></div>
-        <div class="cmp-row cmp-us"><span>MiniRack · 12 physical cores</span><b>$89</b><i style="--w:42%"></i></div>
+        <div class="cmp-row cmp-us"><span>DenBox · 12 physical cores</span><b>$89</b><i style="--w:42%"></i></div>
         <p class="cmp-note muted">Cloud VMs are a bare server. Omarchy Remote is a full desktop, set up and ready to log in.</p>
       </div>
       <div class="cmp">
@@ -425,7 +425,7 @@
         <div class="cmp-row"><span>RunPod Secure <small>$0.99/hr</small></span><b>~$723</b><i style="--w:100%"></i></div>
         <div class="cmp-row"><span>Vast.ai median <small>$0.87/hr</small></span><b>~$635</b><i style="--w:88%"></i></div>
         <div class="cmp-row"><span>RunPod Community <small>$0.69/hr</small></span><b>~$504</b><i style="--w:70%"></i></div>
-        <div class="cmp-row cmp-us"><span>MiniRack</span><b>$500</b><i style="--w:69%"></i></div>
+        <div class="cmp-row cmp-us"><span>DenBox</span><b>$500</b><i style="--w:69%"></i></div>
         <p class="cmp-note muted">Plus 96 GB RAM, 2 TB SSD and team invites — no separate storage fees.</p>
       </div>
     </div>
@@ -469,11 +469,11 @@
     <div class="faq">
       <details open>
         <summary>Is the machine dedicated to me?</summary>
-        <p>Yes. Every MiniRack plan is one physical machine, assigned only to you for the length of your rental. No virtualization, no neighbors. On Olares One you can invite your own teammates to join.</p>
+        <p>Yes. Every DenBox plan is one physical machine, assigned only to you for the length of your rental. No virtualization, no neighbors. On Olares One you can invite your own teammates to join.</p>
       </details>
       <details>
         <summary>Why does it matter that you're not in a data center?</summary>
-        <p>Many services — Apple ID, iMessage, AI tools, social and payment platforms — treat data center IP addresses as suspicious and are quick to add verification, limit or ban accounts. MiniRack machines run on residential networks, so to those services they look like an ordinary computer at home.</p>
+        <p>Many services — Apple ID, iMessage, AI tools, social and payment platforms — treat data center IP addresses as suspicious and are quick to add verification, limit or ban accounts. DenBox machines run on residential networks, so to those services they look like an ordinary computer at home.</p>
       </details>
       <details>
         <summary>How do I connect?</summary>
@@ -522,8 +522,8 @@
 
 <footer>
   <div class="wrap">
-    <span class="logo"><span class="logo-mark"><i></i><i></i></span>MiniRack</span>
-    <span>© 2026 MiniRack. Mac and Mac mini are trademarks of Apple Inc. MiniRack is not affiliated with Apple.</span>
+    <span class="logo"><span class="logo-mark"><i></i><i></i></span>DenBox</span>
+    <span>© 2026 DenBox. Mac and Mac mini are trademarks of Apple Inc. DenBox is not affiliated with Apple.</span>
   </div>
 </footer>
 
@@ -613,9 +613,9 @@
   document.getElementById("waitlist").addEventListener("submit", e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
-    const list = JSON.parse(localStorage.getItem("minirack_waitlist") || "[]");
+    const list = JSON.parse(localStorage.getItem("denbox_waitlist") || "[]");
     list.push({ ...data, at: new Date().toISOString() });
-    localStorage.setItem("minirack_waitlist", JSON.stringify(list));
+    localStorage.setItem("denbox_waitlist", JSON.stringify(list));
     const city = data.region === "sg" ? "Singapore" : "San Jose";
     const machine = { macmini: "Mac mini", omarchy: "Omarchy", olares: "Olares One" }[data.machine];
     document.getElementById("form-msg").textContent = `You're on the list for ${machine} in ${city}. We'll be in touch at ${data.email}.`;
