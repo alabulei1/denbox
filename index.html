@@ -99,6 +99,20 @@
   .addon h4 { font-family: var(--serif); font-weight: 400; font-size: 32px; line-height: 1.1; margin-top: 4px; }
   .addon p { font-size: 16px; }
 
+  /* Compare */
+  .cmp-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); }
+  .cmp { padding: 28px 28px 8px 0; }
+  .cmp + .cmp { padding-left: 28px; border-left: 1px solid var(--line); }
+  .cmp h4 { font-family: var(--serif); font-weight: 400; font-size: 36px; line-height: 1.1; margin: 8px 0 20px; }
+  .cmp-row { display: grid; grid-template-columns: 1fr auto; row-gap: 6px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .cmp-row small { color: var(--muted); font-family: var(--mono); font-size: 11px; margin-left: 6px; }
+  .cmp-row b { font-family: var(--mono); font-weight: 400; font-size: 14px; }
+  .cmp-row i { grid-column: 1 / -1; height: 4px; width: var(--w); background: #C9C4B8; border-radius: 2px; }
+  .cmp-us { font-weight: 500; }
+  .cmp-us b { font-weight: 500; color: var(--sg); }
+  .cmp-us i { background: var(--sg); }
+  .cmp-note { font-size: 14px; margin-top: 14px; }
+
   /* Services */
   .svc { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 40px; padding: 44px 0; border-top: 1px solid var(--line); }
   .svc:last-child { border-bottom: 1px solid var(--line); }
@@ -173,6 +187,8 @@
     .hero-top, .sec-head, .plans, .join-grid, .lineup, .svc, .incl, .loc { grid-template-columns: 1fr; }
     .tile + .tile, .incl div:not(:nth-child(3n+1)) { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
     .svc { gap: 16px; }
+    .cmp-grid { grid-template-columns: 1fr; }
+    .cmp + .cmp { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
     .addon { grid-template-columns: 1fr; gap: 12px; }
     .stats { grid-template-columns: 1fr 1fr; }
     .stat:nth-child(3) { padding-left: 0; border-left: 0; }
@@ -374,6 +390,47 @@
     <div class="pricing-note mono muted">
       <span>Prices in USD · excl. tax</span>
       <span>Available in Singapore &amp; San Jose · cancel anytime</span>
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Same machine.<br><em>Less</em> per month.</h2>
+      <p class="muted">What an always-on machine of the same class costs elsewhere. Hourly prices are multiplied by 730 hours — the cost of keeping it running all month.</p>
+    </div>
+    <div class="cmp-grid">
+      <div class="cmp">
+        <div class="mono muted">Mac mini M4 · 16 GB</div>
+        <h4>Mac mini</h4>
+        <div class="cmp-row"><span>AWS EC2 Mac <small>per month</small></span><b>~$898</b><i style="--w:100%"></i></div>
+        <div class="cmp-row"><span>MacinCloud dedicated</span><b>~$164</b><i style="--w:18%"></i></div>
+        <div class="cmp-row"><span>MacStadium M4.S</span><b>$149</b><i style="--w:17%"></i></div>
+        <div class="cmp-row"><span>Scaleway M4-S</span><b>€149</b><i style="--w:17%"></i></div>
+        <div class="cmp-row cmp-us"><span>MiniRack</span><b>$129</b><i style="--w:14%"></i></div>
+      </div>
+      <div class="cmp">
+        <div class="mono muted">Linux · 16 GB</div>
+        <h4>Omarchy Remote</h4>
+        <div class="cmp-row"><span>AWS EC2 · 8 vCPU <small>per month</small></span><b>~$212</b><i style="--w:100%"></i></div>
+        <div class="cmp-row"><span>Hetzner CCX23 · 4 vCPU</span><b>€86</b><i style="--w:44%"></i></div>
+        <div class="cmp-row cmp-us"><span>MiniRack · 12 physical cores</span><b>$89</b><i style="--w:42%"></i></div>
+        <p class="cmp-note muted">Cloud VMs are a bare server. Omarchy Remote is a full desktop, set up and ready to log in.</p>
+      </div>
+      <div class="cmp">
+        <div class="mono muted">RTX 5090 · always on</div>
+        <h4>Olares One</h4>
+        <div class="cmp-row"><span>RunPod Secure <small>$0.99/hr</small></span><b>~$723</b><i style="--w:100%"></i></div>
+        <div class="cmp-row"><span>Vast.ai median <small>$0.87/hr</small></span><b>~$635</b><i style="--w:88%"></i></div>
+        <div class="cmp-row"><span>RunPod Community <small>$0.69/hr</small></span><b>~$504</b><i style="--w:70%"></i></div>
+        <div class="cmp-row cmp-us"><span>MiniRack</span><b>$500</b><i style="--w:69%"></i></div>
+        <p class="cmp-note muted">Plus 96 GB RAM, 2 TB SSD and team invites — no separate storage fees.</p>
+      </div>
+    </div>
+    <div class="pricing-note mono muted">
+      <span>Public list prices, checked Oct 2026</span>
+      <span>Excludes storage, egress and support fees · may change</span>
     </div>
   </div>
 </section>
