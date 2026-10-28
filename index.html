@@ -219,7 +219,7 @@
     <div class="hero-top">
       <h1>Rent the machine.<br><em>Skip the hardware.</em></h1>
       <div class="hero-sub">
-        <p>Dedicated Mac mini, Omarchy Linux desktops and Olares One AI servers — set up, online and looked after for you. Ready in 60 seconds, from <b>$89/month</b>.</p>
+        <p>Dedicated Mac mini, Omarchy Linux desktops and Olares One AI servers — set up, online and looked after for you, on residential networks instead of data centers. Ready in 60 seconds, from <b>$89/month</b>.</p>
         <div class="hero-cta">
           <a href="#pricing" class="btn btn-dark">Choose a machine →</a>
           <a href="#services" class="btn btn-ghost">What you get</a>
@@ -251,7 +251,7 @@
     <div class="stats">
       <div class="stat"><b>60 sec</b><span class="muted">from checkout to login</span></div>
       <div class="stat"><b>100%</b><span class="muted">dedicated hardware, no VMs</span></div>
-      <div class="stat"><b>1 Gbps</b><span class="muted">uplink, static IPv4</span></div>
+      <div class="stat"><b>Home IP</b><span class="muted">not a data center, fewer bans</span></div>
       <div class="stat"><b>24 / 7</b><span class="muted">always on, auto-recovery</span></div>
     </div>
   </div>
@@ -320,10 +320,10 @@
     <div class="incl">
       <div><span class="mono muted">Setup</span><h4>Ready in 60 seconds</h4><p class="muted">OS installed, accounts created, credentials emailed.</p></div>
       <div><span class="mono muted">Hardware</span><h4>Dedicated, never shared</h4><p class="muted">One physical machine per customer for the whole rental.</p></div>
-      <div><span class="mono muted">Network</span><h4>Static IPv4 &amp; 1 Gbps</h4><p class="muted">A fixed address you can whitelist, on a fast uplink.</p></div>
+      <div><span class="mono muted">Network</span><h4>Residential, not data center</h4><p class="muted">Apps and AI services see a normal home connection, so accounts are less likely to be flagged or banned.</p></div>
       <div><span class="mono muted">Control</span><h4>Reboot &amp; reinstall</h4><p class="muted">Power-cycle or wipe back to a clean OS on request.</p></div>
       <div><span class="mono muted">Uptime</span><h4>Monitored 24/7</h4><p class="muted">Health checks and auto-recovery if a machine hangs.</p></div>
-      <div><span class="mono muted">People</span><h4>Real human support</h4><p class="muted">Email the team that racks your machine.</p></div>
+      <div><span class="mono muted">People</span><h4>Real human support</h4><p class="muted">Email the team that looks after your machine.</p></div>
     </div>
   </div>
 </section>
@@ -409,6 +409,7 @@
         <div class="cmp-row"><span>MacStadium M4.S</span><b>$149</b><i style="--w:17%"></i></div>
         <div class="cmp-row"><span>Scaleway M4-S</span><b>€149</b><i style="--w:17%"></i></div>
         <div class="cmp-row cmp-us"><span>MiniRack</span><b>$129</b><i style="--w:14%"></i></div>
+        <p class="cmp-note muted">The others run in data centers. MiniRack runs on a home network — fewer Apple ID and account flags.</p>
       </div>
       <div class="cmp">
         <div class="mono muted">Linux · 16 GB</div>
@@ -439,10 +440,10 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Two locations.<br>Pick at <em>checkout</em>.</h2>
-      <p class="muted">Every service is available in both data centers at the same price. Choose the one closest to you or your users.</p>
+      <p class="muted">Every service is available in both cities at the same price. Choose the one closest to you or your users.</p>
     </div>
     <div class="loc">
-      <svg id="map" viewBox="0 0 720 260" aria-label="Map showing Singapore and San Jose data centers"></svg>
+      <svg id="map" viewBox="0 0 720 260" aria-label="Map showing Singapore and San Jose locations"></svg>
       <div class="loc-list">
         <div>
           <span class="mono" style="color:var(--sg)">● Singapore</span>
@@ -471,12 +472,16 @@
         <p>Yes. Every MiniRack plan is one physical machine, assigned only to you for the length of your rental. No virtualization, no neighbors. On Olares One you can invite your own teammates to join.</p>
       </details>
       <details>
+        <summary>Why does it matter that you're not in a data center?</summary>
+        <p>Many services — Apple ID, iMessage, AI tools, social and payment platforms — treat data center IP addresses as suspicious and are quick to add verification, limit or ban accounts. MiniRack machines run on residential networks, so to those services they look like an ordinary computer at home.</p>
+      </details>
+      <details>
         <summary>How do I connect?</summary>
         <p>You get a static IPv4 with SSH enabled, plus VNC / Apple Remote Desktop on Mac mini and remote desktop on Omarchy. Credentials arrive by email about 60 seconds after checkout.</p>
       </details>
       <details>
         <summary>Can I switch between Singapore and San Jose?</summary>
-        <p>Yes. Reserve a machine in the other city and we'll help you move your data. Both racks offer all three machines at the same price.</p>
+        <p>Yes. Reserve a machine in the other city and we'll help you move your data. Both locations offer all three machines at the same price.</p>
       </details>
       <details>
         <summary>Can you set up a coding agent for me?</summary>
@@ -493,7 +498,7 @@
 <div class="join" id="join">
   <div class="wrap join-grid">
     <div>
-      <div class="mono" style="color:#A9A59C;margin-bottom:20px">Early access · limited racks</div>
+      <div class="mono" style="color:#A9A59C;margin-bottom:20px">Early access · limited machines</div>
       <h2>Reserve your<br>machine, <em>now.</em></h2>
     </div>
     <form id="waitlist">
@@ -510,7 +515,7 @@
         </select>
       </div>
       <button type="submit" class="btn">Join the waitlist →</button>
-      <div class="form-msg" id="form-msg">We'll email you when your rack opens. No spam.</div>
+      <div class="form-msg" id="form-msg">We'll email you when your machine is ready. No spam.</div>
     </form>
   </div>
 </div>
@@ -593,7 +598,7 @@
   node(sg, "#E2483D", "Singapore", "ONLINE", "end");
   node(us, "#2B4C9B", "San Jose", "ONLINE", "start");
 
-  // Live local clocks for each data center.
+  // Live local clocks for each location.
   const tick = () => document.querySelectorAll("[data-tz]").forEach(n => {
     n.textContent = new Date().toLocaleTimeString("en-GB", { timeZone: n.dataset.tz, hour: "2-digit", minute: "2-digit" });
   });
